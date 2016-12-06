@@ -27,7 +27,7 @@ public class LauncherController {
     private static URL download() {
         URL download = null;
         try {
-            download = new URL("https://ci.arsenarsen.com/job/SelfBot/lastSuccessfulBuild/artifact/target/UserBot-jar-with-dependencies.jar");
+            download = new URL("https://ci.arsenarsen.com/job/SelfBot/lastSuccessfulBuild/artifact/userbot/target/UserBot-jar-with-dependencies.jar");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
