@@ -51,12 +51,13 @@ public class JavaREPL implements Command {
         if (args.length > 0) {
             String javaHome = System.getProperty("java.home");
             if (ToolProvider.getSystemJavaCompiler() == null) {
-                System.setProperty("java.home", System.getenv().getOrDefault("JDK_HOME", ""));
+                System.setProperty("java.home", System.getenv().getOrDefault("JDK_HOME", javaHome));
                 if (ToolProvider.getSystemJavaCompiler() == null) {
-                    System.setProperty("java.home", System.getenv().getOrDefault("JAVA_HOME", ""));
+                    System.setProperty("java.home", System.getenv().getOrDefault("JAVA_HOME", javaHome));
                     if (ToolProvider.getSystemJavaCompiler() == null) {
                         msg.editMessage("You are missing JDK on your system! Halting..\n\n" +
-                                "If you believe this is an error set JDK_HOME and/or JAVA_HOME enviromentals to point to it.").queue();
+                                "If you believe this is an error set JDK_HOME and/or JAVA_HOME enviromentals to point to it.\n" +
+                                "Better solution would be to add JDK_HOME/bin/ to Path and run this jar using the binaty in there!").queue();
                         return;
                     }
                 }

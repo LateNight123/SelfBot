@@ -42,6 +42,8 @@ public class CommandDispatcher extends ListenerAdapter {
         registerCommand(new Google());
         registerCommand(new CalmDown());
         registerCommand(new Ping());
+        registerCommand(new Urban());
+        registerCommand(new Image());
     }
 
     public boolean registerCommand(Command command) {

@@ -48,4 +48,8 @@ public class IOUtils {
         }
         return meta;
     }
+
+    public static String capital(String string) {
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+    }
 }
