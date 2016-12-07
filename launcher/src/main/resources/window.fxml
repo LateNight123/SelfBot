@@ -18,6 +18,7 @@
                         <Button fx:id="start" defaultButton="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onStart" text="Start" />
                         <Button fx:id="stop" disable="true" layoutX="549.0" layoutY="14.0" mnemonicParsing="false" onAction="#onStop" text="Stop" />
                         <TextArea fx:id="logbox" layoutX="14.0" layoutY="40.0" prefHeight="321.0" prefWidth="584.0" />
+                        <Button layoutX="76.0" layoutY="14.0" mnemonicParsing="false" onAction="#onData" text="Open Data Dir" />
                      </children>
                   </AnchorPane>
             </content>

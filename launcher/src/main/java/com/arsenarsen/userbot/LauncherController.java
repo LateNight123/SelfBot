@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -178,5 +179,18 @@ public class LauncherController {
         }
         Platform.runLater(() -> stop.setDisable(!running));
         Platform.runLater(() -> start.setDisable(running));
+    }
+
+    @FXML
+    public void onData(ActionEvent actionEvent) {
+        if (!WORKING_DIR.exists())
+            WORKING_DIR.mkdirs();
+        LauncherEntry.MAIN_POOL.submit(() -> {
+            try {
+                Desktop.getDesktop().open(WORKING_DIR);
+            } catch (IOException e) {
+                LauncherEntry.LOGGER.error("Could not browse WORKING_DIRECTORY", e);
+            }
+        });
     }
 }
