@@ -14,6 +14,7 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -36,6 +37,7 @@ public class Urban implements Command {
                 }
                 UrbanResponse.Definiton d = resp.list[0];
                 msg.editMessage(new MessageBuilder().setEmbed(new EmbedBuilder()
+                        .setTitle("Definiton of " + URLDecoder.decode(term, "UTF-8") + " on UrbanDictionary")
                         .setAuthor(d.author + " on UrbanDictionary", d.permalink, IOUtils.getIcon("http://www.urbandictionary.com/"))
                         .setFooter(d.example, "http://www.urbandictionary.com/")
                         .setColor(new Color((int)(0x1000000*Math.random())))
