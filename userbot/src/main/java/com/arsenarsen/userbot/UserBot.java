@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
@@ -108,10 +109,12 @@ public class UserBot extends ListenerAdapter {
             jda.addEventListener(new ListenerAdapter() {
                 @Override
                 public void onMessageReceived(MessageReceivedEvent event) {
-                    if (!event.getMessage().getMentionedUsers().contains(UserBot.getInstance().getJda().getSelfUser()))
+                    if (event.getChannelType() != ChannelType.PRIVATE
+                            && !event.getMessage().getMentionedUsers().contains(UserBot.getInstance().getJda().getSelfUser()))
                         return;
-                    if (AFK.afk.get() && !AFK.mentioned.contains(event.getAuthor().getId())) {
-                        AFK.mentioned.add(event.getAuthor().getId());
+                    if (AFK.afk.get() &&
+                            (System.currentTimeMillis() - AFK.mentioned.computeIfAbsent(event.getAuthor().getId(), id -> 0L)) > 60000) {
+                        AFK.mentioned.put(event.getAuthor().getId(), System.currentTimeMillis());
                         event.getChannel().sendMessage(event.getAuthor().getAsMention() + " I am AFK!"
                                 + (AFK.afkReason == null ? "" : "\nReason: " + AFK.afkReason)).queue();
                     }

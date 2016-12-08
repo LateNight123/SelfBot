@@ -6,13 +6,13 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AFK implements Command {
     public static AtomicBoolean afk = new AtomicBoolean(false);
-    public static Set<String> mentioned = ConcurrentHashMap.newKeySet();
+    public static Map<String, Long> mentioned = new ConcurrentHashMap<>();
     public static volatile String afkReason = null;
     private OnlineStatus status = OnlineStatus.ONLINE;
 
