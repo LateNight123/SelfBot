@@ -6,12 +6,10 @@ import com.arsenarsen.userbot.util.DiscordUtils;
 import com.arsenarsen.userbot.util.IOUtils;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -36,11 +34,10 @@ public class Urban implements Command {
                     return;
                 }
                 UrbanResponse.Definiton d = resp.list[0];
-                msg.editMessage(new MessageBuilder().setEmbed(new EmbedBuilder()
+                msg.editMessage(new MessageBuilder().setEmbed(DiscordUtils.getEmbedBuilder()
                         .setTitle("Definiton of " + URLDecoder.decode(term, "UTF-8") + " on UrbanDictionary")
                         .setAuthor(d.author + " on UrbanDictionary", d.permalink, IOUtils.getIcon("http://www.urbandictionary.com/"))
                         .setFooter(d.example, "http://www.urbandictionary.com/")
-                        .setColor(new Color((int)(0x1000000*Math.random())))
                         .setDescription(d.definition)
                         .build()).build()).queue();
             } catch (UnirestException | IOException | URISyntaxException e) {

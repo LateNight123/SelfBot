@@ -8,7 +8,7 @@ public class Exit implements Command {
     @Override
     public void dispatch(String[] args, MessageChannel channel, Message msg) {
         msg.editMessage("Bye!").queue();
-        System.exit(1);
+        System.exit(0);
     }
 
     @Override

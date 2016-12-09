@@ -1,8 +1,8 @@
 package com.arsenarsen.userbot.command.commands;
 
 import com.arsenarsen.userbot.command.Command;
-import com.arsenarsen.userbot.util.IOUtils;
 import com.arsenarsen.userbot.util.DiscordUtils;
+import com.arsenarsen.userbot.util.IOUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -12,7 +12,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -46,12 +45,11 @@ public class Google implements Command {
                     msg.editMessage("No results found!").queue();
                     return;
                 }
-                EmbedBuilder embedBuilder = new EmbedBuilder();
+                EmbedBuilder embedBuilder = DiscordUtils.getEmbedBuilder();
                 embedBuilder.setTitle(title);
                 embedBuilder.setAuthor(doc.title().substring(0, doc.title().lastIndexOf("-") - 1), doc.location(), IOUtils.getIcon(doc.location()));
                 embedBuilder.setDescription(body);
                 embedBuilder.setUrl(url);
-                embedBuilder.setColor(new Color((int) (0x1000000 * Math.random())));
                 msg.editMessage(new MessageBuilder().setEmbed(embedBuilder.build()).build()).queue();
             } catch (URISyntaxException | IOException e) {
                 DiscordUtils.updateWithException("Error occured!", e, msg);

@@ -62,7 +62,7 @@ public class JavaREPL implements Command {
                     }
                 }
             }
-            String arg = msg.getRawContent().substring(UserBot.getInstance().getConfig().getProperty("prefix").length() + getName().length() + 1).trim();
+            String arg = DiscordUtils.substringCommand(this, msg, true);
             long time = System.currentTimeMillis();
             ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
             ExecutorService timer = Executors.newSingleThreadExecutor();

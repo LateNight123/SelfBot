@@ -1,10 +1,13 @@
 package com.arsenarsen.userbot.util;
 
 import com.arsenarsen.userbot.UserBot;
+import com.arsenarsen.userbot.command.Command;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
+import java.awt.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -43,5 +46,17 @@ public class DiscordUtils {
 
     public static String gerAvatar(User author) {
         return author.getAvatarId() != null ? author.getAvatarUrl() : author.getDefaultAvatarUrl();
+    }
+
+    public static String substringCommand(Command command, Message msg, boolean rawContent) {
+        String content = rawContent ? msg.getRawContent() : msg.getContent();
+        return content.substring(command.getName().length()
+                + UserBot.getInstance().getConfig().getProperty("prefix").length()
+                + (content.contains(" ") ? 1 : 0));
+    }
+
+    public static EmbedBuilder getEmbedBuilder() {
+        return new EmbedBuilder()
+                .setColor(new Color((int) (Math.random() * 0x1000000)));
     }
 }

@@ -1,7 +1,6 @@
 /UserBot/
 /target/
 /.idea/
-/UserBot.iml
 *.log
 /websocket/
-/launcher/launcher.iml
+*.iml

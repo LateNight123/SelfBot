@@ -9,7 +9,6 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
-import java.awt.*;
 import java.time.format.DateTimeFormatter;
 
 public class Quote implements Command {
@@ -24,9 +23,9 @@ public class Quote implements Command {
                         String cnt = msg.getRawContent();
                         cnt = cnt.substring(UserBot.getInstance().getConfig().getProperty("prefix").length() + getName().length() + 1);
                         cnt = cnt.substring(args[0].length());
-                        EmbedBuilder builder = new EmbedBuilder().setAuthor(auth.getName() + '#' + auth.getDiscriminator(), null, DiscordUtils.gerAvatar(auth))
+                        EmbedBuilder builder = DiscordUtils.getEmbedBuilder()
+                                .setAuthor(auth.getName() + '#' + auth.getDiscriminator(), null, DiscordUtils.gerAvatar(auth))
                                 .setDescription(msg2.getRawContent())
-                                .setColor(new Color((int) (Math.random() * 0x1000000)))
                                 .setFooter(msg2.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null)
                                 .addField("Channel: ", "<#" + channel.getId() + ">", true);
                         for (Message.Attachment attachment : msg2.getAttachments()) {

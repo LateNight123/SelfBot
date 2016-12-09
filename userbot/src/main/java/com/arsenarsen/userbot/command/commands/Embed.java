@@ -1,6 +1,5 @@
 package com.arsenarsen.userbot.command.commands;
 
-import com.arsenarsen.userbot.UserBot;
 import com.arsenarsen.userbot.command.Command;
 import com.arsenarsen.userbot.util.DiscordUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -15,11 +14,8 @@ public class Embed implements Command {
     public void dispatch(String[] args, MessageChannel channel, Message msg) {
         if(args.length == 0)
             return;
-        String cnt = msg.getRawContent();
-        cnt = cnt.substring(getName().length());
-        cnt = cnt.substring(UserBot.getInstance().getConfig().getProperty("prefix").length());
-        msg.editMessage(new MessageBuilder().setEmbed(new EmbedBuilder()
-                .setColor(new Color((int) (Math.random() * 0x1000000)))
+        String cnt = DiscordUtils.substringCommand(this, msg, true);
+        msg.editMessage(new MessageBuilder().setEmbed(DiscordUtils.getEmbedBuilder()
                 .setAuthor(msg.getAuthor().getName() + '#' + msg.getAuthor().getDiscriminator(), null, DiscordUtils.gerAvatar(msg.getAuthor()))
                 .setDescription(cnt).build()).build()).queue();
     }
