@@ -1,7 +1,6 @@
 package com.arsenarsen.userbot;
 
 import com.arsenarsen.userbot.command.CommandDispatcher;
-import com.arsenarsen.userbot.command.commands.AFK;
 import com.arsenarsen.userbot.websocket.UserBotWebSocketServer;
 import com.google.gson.Gson;
 import net.dv8tion.jda.core.AccountType;
