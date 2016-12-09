@@ -106,20 +106,6 @@ public class UserBot extends ListenerAdapter {
         token = getConfig().getProperty("token");
         try {
             jda = new JDABuilder(AccountType.CLIENT).addListener(this, (dispatcher = new CommandDispatcher())).setToken(token).buildAsync();
-            jda.addEventListener(new ListenerAdapter() {
-                @Override
-                public void onMessageReceived(MessageReceivedEvent event) {
-                    if (event.getChannelType() != ChannelType.PRIVATE
-                            && !event.getMessage().getMentionedUsers().contains(UserBot.getInstance().getJda().getSelfUser()))
-                        return;
-                    if (AFK.afk.get() &&
-                            (System.currentTimeMillis() - AFK.mentioned.computeIfAbsent(event.getAuthor().getId(), id -> 0L)) > 60000) {
-                        AFK.mentioned.put(event.getAuthor().getId(), System.currentTimeMillis());
-                        event.getChannel().sendMessage(event.getAuthor().getAsMention() + " I am AFK!"
-                                + (AFK.afkReason == null ? "" : "\nReason: " + AFK.afkReason)).queue();
-                    }
-                }
-            });
         } catch (RateLimitedException | LoginException e) {
             LOGGER.error("Could not log in!", e);
             System.exit(1);
