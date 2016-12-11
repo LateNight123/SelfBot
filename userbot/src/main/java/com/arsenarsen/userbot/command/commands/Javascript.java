@@ -2,7 +2,6 @@ package com.arsenarsen.userbot.command.commands;
 
 import com.arsenarsen.userbot.UserBot;
 import com.arsenarsen.userbot.command.Command;
-import com.arsenarsen.userbot.util.DiscordUtils;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 
@@ -22,7 +21,7 @@ public class Javascript implements Command {
             msg.editMessage("Code: ```js\n" + js + "```\nOutput: ```js\n" + engine.eval(js) + "\n```").queue();
         } catch (ScriptException e) {
             UserBot.LOGGER.error("Could not evaluate js! {}".replace("{}", js), e);
-            DiscordUtils.updateWithException("Could not evaluate ```js\n" + js + "\n````", e, msg);
+            msg.editMessage("Could not evaluate ```js\n" + js + "\n```\n```js" + e.getMessage() + "```").queue();
         }
     }
 
