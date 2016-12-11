@@ -43,6 +43,8 @@ public class CommandDispatcher extends ListenerAdapter {
         registerCommand(new Ping());
         registerCommand(new Urban());
         registerCommand(new Image());
+        registerCommand(new Javascript());
+        registerCommand(new Config());
     }
 
     public boolean registerCommand(Command command) {

@@ -30,7 +30,8 @@ public class Urban implements Command {
                         .asString()
                         .getBody(), UrbanResponse.class);
                 if (!resp.result_type.equals("exact")) {
-                    msg.editMessage("Could not find a definiton! Urban Dictionary said: " + IOUtils.capital(resp.result_type)).queue();
+                    msg.editMessage("Could not find a definiton! Urban Dictionary said: "
+                            + IOUtils.capital(resp.result_type.replace('_', ' '))).queue();
                     return;
                 }
                 UrbanResponse.Definiton d = resp.list[0];
@@ -39,6 +40,7 @@ public class Urban implements Command {
                         .setAuthor(d.author + " on UrbanDictionary", d.permalink, IOUtils.getIcon("http://www.urbandictionary.com/"))
                         .setFooter(d.example, "http://www.urbandictionary.com/")
                         .setDescription(d.definition)
+                        .addField("Definitions found: ", String.valueOf(resp.list.length), true)
                         .build()).build()).queue();
             } catch (UnirestException | IOException | URISyntaxException e) {
                 DiscordUtils.updateWithException("I could not define that!", e, msg);

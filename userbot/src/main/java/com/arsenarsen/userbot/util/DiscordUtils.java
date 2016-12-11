@@ -1,5 +1,6 @@
 package com.arsenarsen.userbot.util;
 
+import com.arsenarsen.userbot.Configuration;
 import com.arsenarsen.userbot.UserBot;
 import com.arsenarsen.userbot.command.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -17,7 +18,7 @@ import java.io.StringWriter;
  */
 public class DiscordUtils {
 
-    public static void sendException(String msg, Throwable e, MessageChannel channel){
+    public static void sendException(String msg, Throwable e, MessageChannel channel) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
@@ -26,14 +27,14 @@ public class DiscordUtils {
         pw.close();
     }
 
-    public static void updateWithException(String msg, Throwable e, Message mesg){
+    public static void updateWithException(String msg, Throwable e, Message mesg) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
         pw.close();
         UserBot.LOGGER.error(msg, e);
         String ctn = msg + "\n```" + sw.toString() + "\n```";
-        if(ctn.length() > 2000){
+        if (ctn.length() > 2000) {
             ctn = ctn.substring(0, 1995) + "\n```";
         }
         mesg.editMessage(ctn).queue();
@@ -56,6 +57,10 @@ public class DiscordUtils {
     }
 
     public static EmbedBuilder getEmbedBuilder() {
+        if (Configuration.COLOR.isSet() && !Configuration.COLOR.get().equalsIgnoreCase("random")) {
+            return new EmbedBuilder()
+                    .setColor(Color.decode(Configuration.COLOR.get()));
+        }
         return new EmbedBuilder()
                 .setColor(new Color((int) (Math.random() * 0x1000000)));
     }
