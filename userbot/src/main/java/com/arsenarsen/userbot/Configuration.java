@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 public enum Configuration {
     COLOR(s -> {
-        if(s.equalsIgnoreCase("random"))
+        if (s.equalsIgnoreCase("random"))
             return true;
         try {
             Color.decode(s);
@@ -36,7 +36,7 @@ public enum Configuration {
         def = null;
     }
 
-    Configuration(Predicate<String> test, String def){
+    Configuration(Predicate<String> test, String def) {
         this.test = test;
         this.def = def;
     }
@@ -51,10 +51,17 @@ public enum Configuration {
     }
 
     public String get() {
-        if(!isSet()){
+        if (!isSet()) {
             return def;
         }
-        return UserBot.getInstance().getConfig().getProperty(name().toLowerCase());
+        String property = UserBot.getInstance().getConfig().getProperty(name().toLowerCase());
+        if (test.test(property))
+            return property;
+        else {
+            UserBot.LOGGER.warn("Value of {} is invalid, reverting to {}", this, def);
+            set(def);
+            return get();
+        }
     }
 
     public boolean isSet() {
