@@ -14,7 +14,7 @@ public enum Configuration {
             return false;
         }
     }, "random"),
-    PREFIX,
+    PREFIX(s -> !s.isEmpty()),
     EMBED_NAMED(s -> s.matches("(true)|(false)"), "true"),
     TOKEN {
         @Override
@@ -46,7 +46,7 @@ public enum Configuration {
             UserBot.getInstance().getConfig().setProperty(name().toLowerCase(), newValue);
             UserBot.getInstance().saveConfig();
         } else {
-            throw new IllegalArgumentException(String.format("The test for %s returned fasle for \"%s\"", this, newValue));
+            throw new IllegalArgumentException(String.format("The test for %s returned false for \"%s\"", this, newValue));
         }
     }
 

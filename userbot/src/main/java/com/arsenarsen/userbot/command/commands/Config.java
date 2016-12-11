@@ -33,6 +33,10 @@ public class Config implements Command {
                         if (configuration2 != null)
                             try {
                                 configuration2.set(value);
+                                EmbedBuilder builder = DiscordUtils.getEmbedBuilder();
+                                builder.addField(configuration2.name(), configuration2.get(), true);
+                                msg.editMessage(new MessageBuilder().append(msg.getRawContent())
+                                        .setEmbed(builder.build()).build()).queue();
                             } catch (IllegalArgumentException e) {
                                 msg.editMessage(e.getMessage()).queue();
                             }
@@ -58,6 +62,6 @@ public class Config implements Command {
 
     @Override
     public String getUsage() {
-        return "config SET KEY VALUE | GET KEY";
+        return "`config SET KEY VALUE | GET KEY` to manipulate values, just `config` to list them";
     }
 }

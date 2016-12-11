@@ -55,11 +55,11 @@ public class Notes implements Command {
                     s.execute("SELECT * FROM notes");
                     ResultSet resultSet = s.getResultSet();
                     StringBuilder todo = new StringBuilder().append("Your notes: ```fix\n");
-                    Map<String, String> todos = new LinkedHashMap<>();
+                    Map<String, String> notes = new LinkedHashMap<>();
                     while (resultSet.next()) {
-                        todos.put(Integer.toString(resultSet.getInt("id")), resultSet.getString("task"));
+                        notes.put(Integer.toString(resultSet.getInt("id")), resultSet.getString("note"));
                     }
-                    todo.append(VerticalAligner.align(todos, "|"));
+                    todo.append(VerticalAligner.align(notes, "|"));
                     todo.append("\n```");
                     msg.editMessage(todo.toString()).queue();
                 });

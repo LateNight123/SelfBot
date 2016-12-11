@@ -64,4 +64,8 @@ public class DiscordUtils {
         return new EmbedBuilder()
                 .setColor(new Color((int) (Math.random() * 0x1000000)));
     }
+
+    public static String getTag(User author) {
+        return '@' + author.getName() + '#' + author.getDiscriminator();
+    }
 }
