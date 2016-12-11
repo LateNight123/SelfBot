@@ -3,6 +3,7 @@ package com.arsenarsen.userbot.command.commands;
 import com.arsenarsen.userbot.Configuration;
 import com.arsenarsen.userbot.command.Command;
 import com.arsenarsen.userbot.util.DiscordUtils;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -32,12 +33,21 @@ public class Config implements Command {
                         if (configuration2 != null)
                             try {
                                 configuration2.set(value);
-                            } catch (IllegalArgumentException e){
+                            } catch (IllegalArgumentException e) {
                                 msg.editMessage(e.getMessage()).queue();
                             }
                     }
                     break;
             }
+        } else {
+            EmbedBuilder builder = DiscordUtils.getEmbedBuilder();
+            for (Configuration c : Configuration.values()) {
+                try {
+                    builder.addField(c.name(), c.get(), true);
+                } catch (Exception ignored) {
+                }
+            }
+            msg.editMessage(new MessageBuilder().append(msg.getRawContent()).setEmbed(builder.build()).build()).queue();
         }
     }
 

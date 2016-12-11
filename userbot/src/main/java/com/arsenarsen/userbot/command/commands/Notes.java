@@ -71,11 +71,11 @@ public class Notes implements Command {
 
     @Override
     public String getName() {
-        return null;
+        return "notes";
     }
 
     @Override
     public String getUsage() {
-        return null;
+        return "`notes add note` to add a note, `notes remove noteid` to remove a note. `notes clear` to clear";
     }
 }
