@@ -84,7 +84,7 @@ public class Quotes implements Command {
                     statement.setInt(1, i);
                     set[0] = statement.executeQuery();
                 });
-                if (set[0] != null) {
+                if (set[0] != null && set[0].next()) {
                     String author = set[0].getString("author");
                     String channelTag = set[0].getString("channel");
                     String avatar = set[0].getString("avatar");
