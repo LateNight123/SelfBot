@@ -76,6 +76,24 @@ public class Quotes implements Command {
                 }
                 return;
             }
+            if (args.length == 1 && args[0].matches("\\d+")) {
+                int i = Integer.parseInt(args[0]);
+                final ResultSet[] set = new ResultSet[1];
+                SQL.executeSQL(conn -> {
+                    PreparedStatement statement = conn.prepareStatement("SELECT * FROM quotes WHERE id = ?");
+                    set[0] = statement.executeQuery();
+                });
+                if (set[0] != null) {
+                    String author = set[0].getString("author");
+                    String channelTag = set[0].getString("channel");
+                    String avatar = set[0].getString("avatar");
+                    String quote = set[0].getString("quote");
+                    String time = set[0].getString("time");
+                    int id = set[0].getInt("id");
+                    send(author, channelTag, avatar, quote, time, id, msg);
+                    return;
+                }
+            }
             SQL.executeSQL(conn -> {
                 Statement s = conn.createStatement();
                 ResultSet set = s.executeQuery("SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1");
@@ -86,13 +104,7 @@ public class Quotes implements Command {
                     String quote = set.getString("quote");
                     String time = set.getString("time");
                     int id = set.getInt("id");
-                    EmbedBuilder builder = DiscordUtils.getEmbedBuilder()
-                            .setAuthor(author, null, avatar)
-                            .setDescription(quote)
-                            .setFooter(time, null)
-                            .addField("Channel: ", channelTag, false)
-                            .addField("ID: ", String.valueOf(id), false);
-                    msg.editMessage(new MessageBuilder().setEmbed(builder.build()).build()).queue();
+                    send(author, channelTag, avatar, quote, time, id, msg);
                 } else {
                     msg.editMessage("No quotes!").queue();
                 }
@@ -100,6 +112,16 @@ public class Quotes implements Command {
         } catch (SQLException e) {
             DiscordUtils.updateWithException("Database error!", e, msg);
         }
+    }
+
+    private void send(String author, String channelTag, String avatar, String quote, String time, int id, Message msg) {
+        EmbedBuilder builder = DiscordUtils.getEmbedBuilder()
+                .setAuthor(author, null, avatar)
+                .setDescription(quote)
+                .setFooter(time, null)
+                .addField("Channel: ", channelTag, false)
+                .addField("ID: ", String.valueOf(id), false);
+        msg.editMessage(new MessageBuilder().setEmbed(builder.build()).build()).queue();
     }
 
     @Override

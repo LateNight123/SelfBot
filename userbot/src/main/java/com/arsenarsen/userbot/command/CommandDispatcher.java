@@ -47,6 +47,7 @@ public class CommandDispatcher extends ListenerAdapter {
         registerCommand(new Config());
         registerCommand(new Notes());
         registerCommand(new Quotes());
+        registerCommand(new Status());
     }
 
     public boolean registerCommand(Command command) {
