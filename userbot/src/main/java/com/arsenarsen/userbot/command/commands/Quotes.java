@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Quotes implements Command {
     @Override
@@ -79,21 +80,24 @@ public class Quotes implements Command {
             if (args.length == 1 && args[0].matches("\\d+")) {
                 int i = Integer.parseInt(args[0]);
                 final ResultSet[] set = new ResultSet[1];
+                AtomicBoolean bool = new AtomicBoolean(false);
                 SQL.executeSQL(conn -> {
                     PreparedStatement statement = conn.prepareStatement("SELECT * FROM quotes WHERE id = ?");
                     statement.setInt(1, i);
                     set[0] = statement.executeQuery();
+                    if (set[0] != null && set[0].next()) {
+                        String author = set[0].getString("author");
+                        String channelTag = set[0].getString("channel");
+                        String avatar = set[0].getString("avatar");
+                        String quote = set[0].getString("quote");
+                        String time = set[0].getString("time");
+                        int id = set[0].getInt("id");
+                        send(author, channelTag, avatar, quote, time, id, msg);
+                        bool.set(true);
+                    }
                 });
-                if (set[0] != null && set[0].next()) {
-                    String author = set[0].getString("author");
-                    String channelTag = set[0].getString("channel");
-                    String avatar = set[0].getString("avatar");
-                    String quote = set[0].getString("quote");
-                    String time = set[0].getString("time");
-                    int id = set[0].getInt("id");
-                    send(author, channelTag, avatar, quote, time, id, msg);
+                if(bool.get())
                     return;
-                }
             }
             SQL.executeSQL(conn -> {
                 Statement s = conn.createStatement();
