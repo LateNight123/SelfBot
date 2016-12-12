@@ -81,6 +81,7 @@ public class Quotes implements Command {
                 final ResultSet[] set = new ResultSet[1];
                 SQL.executeSQL(conn -> {
                     PreparedStatement statement = conn.prepareStatement("SELECT * FROM quotes WHERE id = ?");
+                    statement.setInt(1, i);
                     set[0] = statement.executeQuery();
                 });
                 if (set[0] != null) {
