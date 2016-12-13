@@ -20,15 +20,18 @@ public class Status implements Command {
             if (args[0].equalsIgnoreCase("game")) {
                 UserBot.getInstance().getJda().getPresence()
                         .setGame(Game.of(Arrays.stream(args).skip(1).collect(Collectors.joining(" "))));
+                msg.deleteMessage();
             } else {
                 Matcher m = GET_STREAM_URL_PATTERN.matcher(args[0]);
                 if (m.matches()) {
                     if (Game.isValidStreamingUrl(m.group(1))) {
                         UserBot.getInstance().getJda().getPresence()
                                 .setGame(Game.of(Arrays.stream(args).skip(1).collect(Collectors.joining(" ")), m.group(1)));
+                        msg.deleteMessage();
                     } else {
                         UserBot.getInstance().getJda().getPresence()
                                 .setGame(Game.of(Arrays.stream(args).skip(1).collect(Collectors.joining(" "))));
+                        msg.deleteMessage();
                     }
                 }
             }

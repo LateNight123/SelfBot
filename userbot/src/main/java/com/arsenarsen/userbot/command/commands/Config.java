@@ -38,7 +38,9 @@ public class Config implements Command {
                                 msg.editMessage(new MessageBuilder().append(msg.getRawContent())
                                         .setEmbed(builder.build()).build()).queue();
                             } catch (IllegalArgumentException e) {
-                                msg.editMessage(e.getMessage()).queue();
+                                msg.editMessage(new MessageBuilder().append(msg.getRawContent())
+                                        .setEmbed(DiscordUtils.getEmbedBuilder().setDescription(e.getMessage()).build())
+                                        .build()).queue();
                             }
                     }
                     break;

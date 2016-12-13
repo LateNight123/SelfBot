@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -52,7 +53,7 @@ public class Quotes implements Command {
                                 statement.setString(3, author.substring(1));
                                 statement.setString(4, finalChannelTag);
                                 statement.setString(5, avatar);
-                                statement.setString(6, message.getCreationTime()
+                                statement.setString(6, message.getCreationTime().atZoneSameInstant(ZoneId.systemDefault())
                                         .format(DateTimeFormatter.RFC_1123_DATE_TIME));
                                 statement.executeUpdate();
                                 msg.editMessage("Added!").queue();

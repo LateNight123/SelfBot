@@ -10,6 +10,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public class Quote implements Command {
@@ -44,7 +45,8 @@ public class Quote implements Command {
             EmbedBuilder builder = DiscordUtils.getEmbedBuilder()
                     .setAuthor(auth.getName() + '#' + auth.getDiscriminator(), null, DiscordUtils.gerAvatar(auth))
                     .setDescription(msg2.getRawContent())
-                    .setFooter(msg2.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null)
+                    .setFooter(msg2.getCreationTime().atZoneSameInstant(ZoneId.systemDefault())
+                            .format(DateTimeFormatter.RFC_1123_DATE_TIME), null)
                     .addField("Channel: ", "<#" + finalChannel.getId() + ">", true);
             for (Message.Attachment attachment : msg2.getAttachments()) {
                 builder.setImage(attachment.getUrl());
