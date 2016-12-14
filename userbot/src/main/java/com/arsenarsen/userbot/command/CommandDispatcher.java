@@ -75,8 +75,8 @@ public class CommandDispatcher extends ListenerAdapter {
                 && content.toLowerCase().startsWith(prefix.toLowerCase())) {
             MessageChannel channel = event.getChannel();
             for (Command c : commands.values()) {
-                if (content.toLowerCase().startsWith(prefix.toLowerCase() + c.getName() + ' ')
-                        || content.equalsIgnoreCase(prefix + c.getName())) {
+                if (content.toLowerCase().startsWith(prefix.toLowerCase() + c.getName().toLowerCase() + ' ')
+                        || content.equalsIgnoreCase(prefix + c.getName().toLowerCase())) {
                     String[] split = split(content, c, prefix);
                     UserBot.LOGGER.info("Dispatching command '" + c.getName().toLowerCase() + "' with split: " + Arrays.toString(split));
                     threadPoolExecutor.submit(() -> {

@@ -34,7 +34,7 @@ public class Notes implements Command {
                     PreparedStatement st = connection.prepareStatement("INSERT INTO notes (note) VALUES (" +
                             "   ?" +
                             ")");
-                    String note = DiscordUtils.substringCommand(this, msg, false);
+                    String note = DiscordUtils.substringCommand(this, msg, false).substring(4);
                     st.setString(1, note);
                     st.executeUpdate();
                     msg.editMessage("Success!").queue();
