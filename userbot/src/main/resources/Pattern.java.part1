@@ -1,8 +1,14 @@
 import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.*;
+import java.time.*;
+import java.math.*;
 import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.impl.*;
+import net.dv8tion.jda.core.managers.*;
 import net.dv8tion.jda.core.*;
 import com.arsenarsen.userbot.*;
 import com.arsenarsen.userbot.command.*;
 
 public class Pattern {
-	public static Object execute(MessageChannel channel) throws Exception {
+	public static Object execute(MessageChannel channel, JDA jda, Guild guild, Message message) throws Exception {

@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: net.dv8tion:JDA:3.0.BETA_105" level="project" />
+    <orderEntry type="library" name="Maven: net.dv8tion:JDA:3.0.BETA_106" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.commons:commons-collections4:4.1" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
@@ -31,6 +31,8 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpasyncclient:4.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpmime:4.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-jsr223:2.4.7" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy:2.4.7" level="project" />
     <orderEntry type="library" name="Maven: org.java-websocket:Java-WebSocket:1.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
   </component>

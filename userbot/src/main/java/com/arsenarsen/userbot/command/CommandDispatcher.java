@@ -1,6 +1,7 @@
 package com.arsenarsen.userbot.command;
 
 import com.arsenarsen.userbot.UserBot;
+import com.arsenarsen.userbot.command.co.Groovy;
 import com.arsenarsen.userbot.command.commands.*;
 import com.arsenarsen.userbot.util.DiscordUtils;
 import net.dv8tion.jda.core.entities.Message;
@@ -48,6 +49,9 @@ public class CommandDispatcher extends ListenerAdapter {
         registerCommand(new Notes());
         registerCommand(new Quotes());
         registerCommand(new Status());
+        registerCommand(new Groovy
+
+                ());
     }
 
     public boolean registerCommand(Command command) {

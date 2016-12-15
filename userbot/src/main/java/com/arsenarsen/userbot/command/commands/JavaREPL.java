@@ -2,10 +2,10 @@ package com.arsenarsen.userbot.command.commands;
 
 import com.arsenarsen.userbot.UserBot;
 import com.arsenarsen.userbot.command.Command;
-import com.arsenarsen.userbot.util.IOUtils;
 import com.arsenarsen.userbot.util.DiscordUtils;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import com.arsenarsen.userbot.util.IOUtils;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.*;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -79,9 +79,12 @@ public class JavaREPL implements Command {
                 Class<?> compiled = compile(arg, time, errorStream, classFile, classStorage, javaHome);
                 Runnable task = () -> {
                     try {
-                        Method method = compiled.getDeclaredMethod("execute", MessageChannel.class);
+                        Method method = compiled.getDeclaredMethod("execute", MessageChannel.class, JDA.class, Guild.class, Message.class);
+                        Guild guild = null;
+                        if (channel instanceof TextChannel)
+                            guild = ((TextChannel) channel).getGuild();
                         msg.editMessage("Input: ```java\n" + arg + "\n```\n"
-                                + "Output: " + method.invoke(null, channel)).queue();
+                                + "Output: " + method.invoke(null, channel, channel.getJDA(), guild, msg)).queue();
                     } catch (IllegalAccessException | NoSuchMethodException e) {
                         DiscordUtils.updateWithException("Input: ```java\n" + arg + "\n```\n" + "Could not execute!\n", e, msg);
                     } catch (InvocationTargetException e) {
